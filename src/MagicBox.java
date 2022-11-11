@@ -16,7 +16,7 @@ public class MagicBox<T> {
             System.out.println("The array is full");
             return false;
     }
-    public T pick(T[] items) {
+    public T pick() throws RuntimeException{
             if (items[items.length-1] != null) {
                 Random random = new Random();
                 int randomInt = random.nextInt(items.length);
@@ -26,19 +26,9 @@ public class MagicBox<T> {
                 for (int i = 0; i < items.length; i++) {
                     if (items[i] != null) vacantSlot--;
                 }
-//                throw RuntimeException e {
-                    System.out.println("The magic box isn't full. There are " + vacantSlot + " slots left");
-
+                throw new RuntimeException("The magic box isn't full. There are " + vacantSlot + " slots left");
                 }
             }
-
-
-
-
-
-        T[] array = items;
-        return array[0];                            //!
-    }
     public T[] getItems() {
         return items;
     }
