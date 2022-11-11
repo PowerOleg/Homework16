@@ -24,11 +24,8 @@ public class Main {
 
         System.out.println(magicBoxBool.add(false));
         magicBoxBool.add(true);
-        magicBoxBool.add(true);
-        magicBoxBool.add(true);
         System.out.println(magicBoxBool.pick());
         System.out.println(magicBoxBool.pick());
         System.out.println();
     }
-
 }
