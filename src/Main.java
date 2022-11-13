@@ -2,9 +2,9 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        MagicBox<Integer> magicBoxInt = new MagicBox<Integer>(3);
+        MagicBox<Integer> magicBoxInt = new MagicBox<>(3);
         MagicBox<String> magicBoxString = new MagicBox<>(4);
-        MagicBox<Boolean> magicBoxBool = new MagicBox<>(3);
+        MagicBox<Boolean> magicBoxBool = new MagicBox<>(5);
 
         System.out.println(magicBoxInt.add(1));
         magicBoxInt.add(5);
