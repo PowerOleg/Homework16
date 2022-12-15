@@ -1,3 +1,5 @@
+package ru.netology.homework26;
+
 public class Main {
     public static void main(String[] args) {
         MagicBox<Integer> magicBoxInt = new MagicBox<>(3);
