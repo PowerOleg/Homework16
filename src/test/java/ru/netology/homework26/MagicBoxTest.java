@@ -117,21 +117,25 @@ public class MagicBoxTest {
     }
 
 
-//тест, что метод pick достает один элемент случайно
+//тест, что метод pick достает один элемент случайно, если массив заполнен
+    //вопрос как сделать изящно
     @Test
-    public <T> T testIntegerPick() throws RuntimeException {
-    final int magicBoxLength = 3;
-    final Integer[] argument = {0, -6845654};
-    MagicBox<Integer> magicBox = new MagicBox<>(magicBoxLength);
-    for (int i = 0; i < argument.length; i++) {
-        magicBox.add(argument[i]);
-    }
+    public void testIntegerPick() {
+        final Integer[] argument = {-1, 2, 5, 10, 5};
+        MagicBox<Integer> magicBox = new MagicBox<>(argument.length);
+        for (int i = 0; i < argument.length; i++) {
+            magicBox.add(argument[i]);
+        }
 
-    Assertions.assertThrows(RuntimeException.class, () -> magicBox.pick());
+    final Integer result = magicBox.pick();
+        for (Integer expected : argument) {
+//            Assertions.assertEquals(expected, result);
+        }
+
 }
 
-
-
+//что метод pick верно считает количество оставшихся слотов до заполнения и начала работы метода
+// что метод не работает если там нет элементов
 
 
     //        @ParameterizedTest
