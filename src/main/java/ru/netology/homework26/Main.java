@@ -1,5 +1,7 @@
 package ru.netology.homework26;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         MagicBox<Integer> magicBoxInt = new MagicBox<>(3);
@@ -10,6 +12,7 @@ public class Main {
         magicBoxInt.add(5);
         magicBoxInt.add(10);
         magicBoxInt.add(200);
+//        System.out.printf("getItems - %s\n", Arrays.toString(magicBoxInt.getItems()));
         System.out.println(magicBoxInt.pick());
         System.out.println(magicBoxInt.pick());
         System.out.println();
