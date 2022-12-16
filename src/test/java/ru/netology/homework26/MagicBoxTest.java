@@ -1,3 +1,7 @@
+//разобраться с типом Double
+//надо ставить выбрасывание Исключения? к примеру к testAdd?
+//вынести из методов в класс все объявление экземпляров
+
 package ru.netology.homework26;
 
 import org.junit.Test;
@@ -52,19 +56,28 @@ public class MagicBoxTest {
     }
 
 
-//надо ставить выбрасывание Исключения?
+
     @Test
-    public <T> boolean testAdd(T item) throws Exception {
+    public <T> void testAdd() throws Exception {
 
-    final Integer[] original;
-    final Integer[] argument;
-    final Integer[] expected;
+        final int magicBoxLength = 4;
+        final Integer[] argument = {-1000, 100, 0};
+        final Integer[] expected2 = {-1000, 100, 0, null};
 
 
+        MagicBox<Integer> magicBox = new MagicBox<>(magicBoxLength);
+//тест что метод add проходит возвраая true
+        for (int i = 0; i < argument.length; i++) {
+            final boolean result1 = magicBox.add(argument[i]);
+            Assertions.assertTrue(result1);
+        }
+//тест что метод add добавил в items нужные значения
+        final Object[] result2 = magicBox.getItems();
 
-        return true;
+        Assertions.assertArrayEquals(expected2, result2);
 
-        Assertions.assertArrayEquals();
+//тест что метод add не добавит больше значений чем нужно
+
     }
 
     //        @ParameterizedTest
