@@ -22,23 +22,21 @@ import static org.junit.Assert.assertEquals;
 
 public class MagicBoxTest {
 
-            @ParameterizedTest
-            @MethodSource("ArrayProvider")
-        public <T> void testGetItemsWithMethodSourcePositive(T[] argument) {                   //
-            final T[] expected = argument;
 
-            final int magicBoxLength = 4;
-            MagicBox<T> magicBox = new MagicBox<>(magicBoxLength);
-                for (int i = 0; i < 4; i++) {
-                    magicBox.add(argument[i]);
-                }
 
-                Object[] result = magicBox.getItems();
-            Assertions.assertArrayEquals(expected, result);
+    //тест, что метод add возвращает true даже без заполнения items[]
+    @ParameterizedTest
+    @MethodSource("arrayProvider")
+    public <T> void testAddReturnTruePositive(T[] argument) {
+        final int magicBoxLength = 5;
+        MagicBox<T> magicBox = new MagicBox<>(magicBoxLength);
 
+        for (int i = 0; i < argument.length; i++) {
+            final boolean result1 = magicBox.add(argument[i]);
+            Assertions.assertTrue(result1);
         }
-
-    static Stream<Arguments> ArrayProvider() {
+    }
+    static Stream<Arguments> arrayProvider() {
         return Stream.of(
                 Arguments.of((Object) new String[]{"A", "Book", "Comprehensive", "ZZZZZZZ"}),
                 Arguments.of((Object) new Integer[]{1, 2, 3, 4}),
@@ -47,19 +45,6 @@ public class MagicBoxTest {
         );
     }
 
-
-    //тест, что метод add проходит и возвращает true
-    @Test
-    public <T> void testAddReturnTruePositive() {
-        final int magicBoxLength = 4;
-        final Integer[] argument = {-1000, 100, 0};
-        MagicBox<Integer> magicBox = new MagicBox<>(magicBoxLength);
-
-        for (int i = 0; i < argument.length; i++) {
-            final boolean result1 = magicBox.add(argument[i]);
-            Assertions.assertTrue(result1);
-        }
-    }
 
     //тест, что метод add добавил в items нужные значения
     @Test
@@ -76,7 +61,7 @@ public class MagicBoxTest {
         Assertions.assertArrayEquals(expected, result2);
     }
 
-    //тест что метод вернет false при добавлении  элементов больше чем можно
+    //тест что метод вернет false при добавлении элементов больше чем можно
     @Test
     public <T> void testAddLimitNegative() {
         final int magicBoxLength = 4;
@@ -91,6 +76,28 @@ public class MagicBoxTest {
 
 
 
+
+
+
+
+
+
+    //после того как проверили метод add, проверяем метод getItems для всех типов данных
+    @ParameterizedTest
+    @MethodSource("arrayProvider")
+    public <T> void testGetItemsWithMethodSourcePositive(T[] argument) {                   //
+        final T[] expected = argument;
+
+        final int magicBoxLength = 4;
+        MagicBox<T> magicBox = new MagicBox<>(magicBoxLength);
+        for (int i = 0; i < magicBoxLength; i++) {
+            magicBox.add(argument[i]);
+        }
+
+        Object[] result = magicBox.getItems();
+        Assertions.assertArrayEquals(expected, result);
+
+    }
 
 
 
