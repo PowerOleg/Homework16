@@ -2,6 +2,7 @@
 //надо ставить выбрасывание Исключения? к примеру к testAdd?
 //вынести из методов в класс все объявление экземпляров
 //проверить все для Double
+//нужно превратить в параметризованные тесты
 
 package ru.netology.homework26;
 
@@ -9,50 +10,41 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class MagicBoxTest {
-    @Test
-    public void testGetItemsIntegerPositive() {
-        final Integer[] argument = {-100, 0, 50, 100};
-        final Integer[] expected = argument;
 
-        MagicBox<Integer> magicBox = new MagicBox<>(argument.length);
-        for (int i = 0; i < argument.length; i++) {
-            magicBox.add(argument[i]);
+            @ParameterizedTest
+            @MethodSource("ArrayProvider")
+        public <T> void testGetItemsWithMethodSourcePositive(T[] argument) {                   //
+            final T[] expected = argument;
+
+            final int magicBoxLength = 4;
+            MagicBox<T> magicBox = new MagicBox<>(magicBoxLength);
+                for (int i = 0; i < 4; i++) {
+                    magicBox.add(argument[i]);
+                }
+
+                Object[] result = magicBox.getItems();
+            Assertions.assertArrayEquals(expected, result);
+
         }
 
-        Object[] result = magicBox.getItems();
-        Assertions.assertArrayEquals(expected, result);
-    }
-    @Test
-    public void testGetItemsStringPositive() {
-        final String[] argument = {"", "ABC", "154"};
-        final String[] expected = argument;
-
-        MagicBox<String> magicBox = new MagicBox<>(argument.length);
-        for (int i = 0; i < argument.length; i++) {
-            magicBox.add(argument[i]);
-        }
-
-        Object[] result = magicBox.getItems();
-        Assertions.assertArrayEquals(expected, result);
-    }
-    @Test
-    public void testGetItemsBooleanPositive() {
-        final Boolean[] argument = {true, true, false};
-        final Boolean[] expected = argument;
-
-        MagicBox<Boolean> magicBox = new MagicBox<>(argument.length);
-        for (int i = 0; i < argument.length; i++) {
-            magicBox.add(argument[i]);
-        }
-
-        Object[] result = magicBox.getItems();
-        Assertions.assertArrayEquals(expected, result);
+    static Stream<Arguments> ArrayProvider() {
+        return Stream.of(
+                Arguments.of((Object) new String[]{"A", "Book", "Comprehensive", "ZZZZZZZ"}),
+                Arguments.of((Object) new Integer[]{1, 2, 3, 4}),
+                Arguments.of((Object) new Double[]{0.1, 2.9, 500.5, 4.4}),
+                Arguments.of((Object) new Boolean[]{true, true, true, false})
+        );
     }
 
 
@@ -157,6 +149,7 @@ public class MagicBoxTest {
 }
     Assertions.assertEquals(expected, result);
 }
+
 
 
     //        @ParameterizedTest
