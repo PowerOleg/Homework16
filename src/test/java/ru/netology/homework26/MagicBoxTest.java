@@ -1,6 +1,7 @@
 //разобраться с типом Double
 //надо ставить выбрасывание Исключения? к примеру к testAdd?
 //вынести из методов в класс все объявление экземпляров
+//проверить все для Double
 
 package ru.netology.homework26;
 
@@ -14,9 +15,8 @@ import static org.junit.Assert.assertEquals;
 
 
 public class MagicBoxTest {
-
     @Test
-    public void testIntegerGetItems() {
+    public void testGetItemsIntegerPositive() {
         final Integer[] argument = {-100, 0, 50, 100};
         final Integer[] expected = argument;
 
@@ -29,7 +29,7 @@ public class MagicBoxTest {
         Assertions.assertArrayEquals(expected, result);
     }
     @Test
-    public void testStringGetItems() {
+    public void testGetItemsStringPositive() {
         final String[] argument = {"", "ABC", "154"};
         final String[] expected = argument;
 
@@ -42,7 +42,7 @@ public class MagicBoxTest {
         Assertions.assertArrayEquals(expected, result);
     }
     @Test
-    public void testBooleanGetItems() {
+    public void testGetItemsBooleanPositive() {
         final Boolean[] argument = {true, true, false};
         final Boolean[] expected = argument;
 
@@ -58,7 +58,7 @@ public class MagicBoxTest {
 
     //тест, что метод add проходит и возвращает true
     @Test
-    public <T> void testTrueAdd() {
+    public <T> void testAddReturnTruePositive() {
         final int magicBoxLength = 4;
         final Integer[] argument = {-1000, 100, 0};
         MagicBox<Integer> magicBox = new MagicBox<>(magicBoxLength);
@@ -71,7 +71,7 @@ public class MagicBoxTest {
 
     //тест, что метод add добавил в items нужные значения
     @Test
-    public <T> void testIntegerAdd() {
+    public <T> void testAddIntegerPositive() {
         final int magicBoxLength = 4;
         final Integer[] argument = {-1000, 100, 0};
         final Integer[] expected = {-1000, 100, 0, null};
@@ -86,7 +86,7 @@ public class MagicBoxTest {
 
     //тест что метод вернет false при добавлении  элементов больше чем можно
     @Test
-    public <T> void testLimitAdd() {
+    public <T> void testAddLimitNegative() {
         final int magicBoxLength = 4;
         final Integer[] argument = {-1000, 100, 0, 100500, -6845654};
         MagicBox<Integer> magicBox = new MagicBox<>(magicBoxLength);
@@ -105,7 +105,7 @@ public class MagicBoxTest {
 
 //тест что метод pick не достает элемент, если MagicBox не заполнен
     @Test
-    public void testExceptionPick() {
+    public void testPickExceptionNegative() {
         final int magicBoxLength = 3;
         final Integer[] argument = {0, -6845654};
         MagicBox<Integer> magicBox = new MagicBox<>(magicBoxLength);
@@ -118,7 +118,7 @@ public class MagicBoxTest {
 
 //тест, что метод pick достает один элемент случайно, если массив заполнен
     @Test
-    public void testIntegerPick() {
+    public void testPickIntegerPositive() {
         final Integer[] argument = {-1, 2, 5, 10, 5};
         MagicBox<Integer> magicBox = new MagicBox<>(argument.length);
         for (int i = 0; i < argument.length; i++) {
@@ -135,7 +135,28 @@ public class MagicBoxTest {
 }
 
 //тест, что метод pick верно считает количество оставшихся слотов до заполнения и начала работы метода
-// что метод не работает если там нет элементов
+    @Test
+    public void testPickSlotCheckingPositive() {
+    final int magicBoxlength = 5;
+    final int expected = 2;
+    int result = -1;
+    MagicBox<Integer> magicBox = new MagicBox<>(magicBoxlength);
+
+    final Integer[] argument = {-1, 2, 5};
+    for (int i = 0; i < argument.length; i++) {
+        magicBox.add(argument[i]);
+    }
+    try {
+        magicBox.pick();
+    } catch (RuntimeException e) {
+    String s = String.valueOf(e);
+    String phrase = "There are ";
+    int start = s.indexOf(phrase);
+    start += phrase.length();
+    result = Integer.parseInt(s.substring(start, start+1));
+}
+    Assertions.assertEquals(expected, result);
+}
 
 
     //        @ParameterizedTest
