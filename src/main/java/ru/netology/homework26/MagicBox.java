@@ -1,3 +1,5 @@
+package ru.netology.homework26;
+
 import java.util.Random;
 
 public class MagicBox<T> {
